@@ -23,18 +23,69 @@ Key Features Include
 Installation
 ------------
 
-Once the project is cloned you need nodejs (nodejs-legacy for debian-based distributions), npm, ruby, and Mongo DB. You can then run
+### Recommended Method (using Vagrant):  
+1. Download and install Vagrant and Virtualbox  
+2. Run the following to create and run a virtual machine with our development environment:
+
+    ```shell
+    git clone https://github.com/rcos/Observatory3.git
+    cd Observatory3
+    vagrant up
+    ```
+
+3. To get a shell on that virtual machine, run the following:
+
+    ```shell
+    vagrant ssh  
+    ```
+All the code is located in /vagrant.
+
+### Manual Method:  
+1. Install nodejs (nodejs-legacy for debian-based distributions), npm, ruby, and Mongo DB
+2. Install global node dependencies:
+
+    ```shell
+    npm install -g grunt-cli grunt bower
+    ```
+
+3. Install sass:
+
+    ```shell
+    sudo gem install sass
+    ```
+
+4. Clone the repository and install local node dependencies:
+
+    ```shell
+    git clone https://github.com/rcos/Observatory3.git
+    cd Observatory3
+    npm install
+    ```
+    
+    If the last command gave errors, try the following:
+
+    ```shell
+    sudo chown $USER -R ~/.npm
+    npm install
+    ```
+
+5. Start the mongodb service:
+
+    ```shell
+    sudo service mongodb start # or equivalent if not on an ubuntu-based distribution
+    ```
+    If mongodb fails to start, run the following and try again:
+
+    ```shell
+    sudo mkdir -p /data/db
+    ```
+
+Running
+-------
+
+Use the following command from /vagrant if logged into the Vagrant virtual machine or from the project directory otherwise:
 
 ```
-npm install -g grunt-cli grunt bower
-npm install
-# if you have errors running the above, run the following line:
-sudo chown $USER -R ~/.npm
-bower install
-sudo gem install sass
-sudo service mongodb start # or equivalent if not on an ubuntu-based distribution
-# if mongodb fails to start, run the following line and retry:
-sudo mkdir -p /data/db
 grunt serve
 ```
 
